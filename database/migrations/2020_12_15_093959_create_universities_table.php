@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateAccountStatusesTable extends Migration
+class CreateUniversitiesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,11 +13,12 @@ class CreateAccountStatusesTable extends Migration
      */
     public function up()
     {
-        Schema::create('account_statuses', function (Blueprint $table) {
+        Schema::create('universities', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('account_id');
-            $table->foreign('account_id')->references('id')->on('accounts')->onDelete('cascade');
-            $table->boolean('has_vote')->default(0);
+            $table->integer('unicod');
+            $table->string('title');
+            $table->unsignedBigInteger('pardis_id');
+            $table->foreign('pardis_id')->references('id')->on('pardis')->onDelete('cascade');
             $table->timestamps();
         });
     }
@@ -29,6 +30,6 @@ class CreateAccountStatusesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('account_statuses');
+        Schema::dropIfExists('universities');
     }
 }

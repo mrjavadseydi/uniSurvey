@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\Http;
 class AuthController extends Controller
 {
     public function index(AuthRequest $request){
+
         $url = "https://lms.birjand.ac.ir/login/token.php?username=".$request->username."&password=".$request->password."&service=moodle_mobile_app";
         $data = Http::get($url)->json();
         if (isset($data['errorcode'])) {
