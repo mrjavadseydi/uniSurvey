@@ -8,4 +8,8 @@ use Illuminate\Database\Eloquent\Model;
 class University extends Model
 {
     use HasFactory;
+    protected $guarded = [];
+    public function pardis(){
+        return $this->belongsTo(Pardis::class,'pardis_id','id');
+    }
 }
