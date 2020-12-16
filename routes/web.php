@@ -21,3 +21,7 @@ Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
     return view('dashboard');
 })->name('dashboard');
 Route::post('/puyaAuth',[\App\Http\Controllers\AuthController::class,'index'])->name('login');
+
+Route::middleware('customAuth')->prefix('survey')->group(function (){
+    Route::get('/survey',[\App\Http\Controllers\SurveyController::class,'index'])->name('survey');
+});

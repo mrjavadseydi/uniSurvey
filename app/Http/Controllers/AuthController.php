@@ -38,7 +38,7 @@ class AuthController extends Controller
             'expire_at'=>Carbon::now()->addMinutes(30),
             'account'=>$acc
         ]]);
-        return view('form.survey',compact('acc'));
+        return redirect(route('survey'));
     }
     public  function GetName_scienceLevel($code) {
         switch ($code) {
