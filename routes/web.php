@@ -14,7 +14,6 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-   dd(  \App\Models\AccountStatus::first()->Account()->first());
     return view('welcome');
 });
 

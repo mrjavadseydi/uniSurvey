@@ -12,7 +12,6 @@
         crossorigin="anonymous" />
     <link href="https://cdn.jsdelivr.net/gh/rastikerdar/vazir-font@v27.1.0/dist/font-face.css" rel="stylesheet"
           type="text/css"/>
-    <link href="{{ asset('css/iziToast.css') }}" rel="stylesheet">
     <title>ورود به حساب کاربری</title>
     <style>
         html{
@@ -106,6 +105,7 @@
         }
 
     </style>
+    @toastr_css
 </head>
 <body>
 <div class="container" id="log-in-form">
@@ -129,7 +129,8 @@
         <div class="clearfix"></div>
     </form>
 </div>
-<script src="{{ asset('js/iziToast.js') }}"></script>
-@include('vendor.lara-izitoast.toast')
+@jquery
+@toastr_js
+@toastr_render
 </body>
 </html>
