@@ -19,8 +19,7 @@ class CreateVotesTable extends Migration
             $table->foreign('account_id')->references('id')->on('accounts')->onDelete('cascade');
             $table->unsignedBigInteger('candidates_id');
             $table->foreign('candidates_id')->references('id')->on('candidates')->cascadeOnDelete();
-            $table->unsignedBigInteger('university_id');
-            $table->foreign('university_id')->references('id')->on('universities')->cascadeOnDelete();
+            $table->integer('pardis_id');
             $table->timestamps();
         });
     }

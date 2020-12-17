@@ -24,4 +24,5 @@ Route::post('/puyaAuth',[\App\Http\Controllers\AuthController::class,'index'])->
 
 Route::middleware('customAuth')->prefix('survey')->group(function (){
     Route::get('/survey',[\App\Http\Controllers\SurveyController::class,'index'])->name('survey');
+    Route::post('/survey',[\App\Http\Controllers\SurveyController::class,'save']);
 });

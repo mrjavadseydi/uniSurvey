@@ -34,6 +34,15 @@
             color: black;
             background: white;
         }
+        .active3 .card-body {
+            background: #008600;
+            color: white;
+        }
+
+        .active3 .btn-primary {
+            color: black;
+            background: white;
+        }
     </style>
 </head>
 <body>
@@ -45,22 +54,22 @@
 </header>
 
 <div class="container shadow" id="main">
-    <div class="row py-4 border-primary">
-        <div class="col-md-4 col-sm-12 text-center">
-            <span>
+    <div class="row py-4 border-primary shadow-lg">
+        <div class="col-md-4 col-sm-12 text-center ">
+            <h5>
  کد استادی:
                 {{$user->ProCode}}
-            </span>
+            </h5>
         </div>
         <div class="col-md-4 col-sm-12 text-center">
-            <span>
+            <h5>
                 {{\App\Models\University::whereUnicod($user->FacultyCode)->first()->title}}
-            </span>
+            </h5>
         </div>
         <div class="col-md-4 col-sm-12 text-center">
-            <span>
+            <h5>
                {{$user->FullName}}
-            </span>
+            </h5>
         </div>
     </div>
     <hr>
@@ -70,7 +79,8 @@
         </h4>
     </div>
     <div class="p-2">
-        <form action="#">
+        <form action="{{route('survey')}}" method="post">
+            @csrf
             <div class="row">
                 @foreach($com as $l=> $c)
                     <div class="col-md-3 col-sm-12" onclick="f1(this)">
@@ -86,7 +96,7 @@
                                 </div>
                             </div>
                         </label>
-                        <input type="radio" value="{{$c->id}}" name="com" style="display: none" id="test{{$l}}">
+                        <input type="radio" value="{{$c->id}}" required name="com" style="display: none" id="test{{$l}}">
                     </div>
                 @endforeach
             </div>
@@ -97,7 +107,7 @@
             </div>
             <div class="row">
                 @foreach($heyat as $l=> $c)
-                    <div class="col-md-3 col-sm-12" onclick="f1(this)">
+                    <div class="col-md-3 col-sm-12" onclick="f2(this)">
                         <label for="te{{$l}}">
                             <div class="card" style="">
                                 <img class="card-img-top" src="{{$c->photo}}" style="width: 225px;height: 224px;"      alt="Card image cap">
@@ -109,9 +119,13 @@
                                 </div>
                             </div>
                         </label>
-                        <input type="radio" value="{{$c->id}}" name="heyat" style="display: none" id="te{{$l}}">
+                        <input type="radio" value="{{$c->id}}" required name="heyat" style="display: none" id="te{{$l}}">
                     </div>
                 @endforeach
+            </div>
+            <hr>
+            <div class="col-12">
+            <input type="submit" class="btn btn-primary w-100"  value="ثبت رای">
             </div>
         </form>
     </div>
@@ -129,7 +143,12 @@
         elem.classList.add("active2");
         $('.active2 span').text("انتخاب شده");
     }
-
+    function f2(elem) {
+        $('.active3 span').text("انتخاب این کاندیدا");
+        $('.active3').removeClass('active3');
+        elem.classList.add("active3");
+        $('.active3 span').text("انتخاب شده");
+    }
 </script>
 </body>
 </html>
