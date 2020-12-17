@@ -40,15 +40,5 @@ class AuthController extends Controller
         ]]);
         return redirect(route('survey'));
     }
-    public  function GetName_scienceLevel($code) {
-        switch ($code) {
-            case 1: return"مربي آموزشيار";
-            case 2: return"مربي";
-            case 3: return"استاديار";
-            case 4: return"دانشيار";
-            case 5: return"استاد";
-        }
 
-        return "";
-    }
 }

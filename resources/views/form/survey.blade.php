@@ -9,7 +9,7 @@
         rel="stylesheet"
         href="https://cdn.rtlcss.com/bootstrap/v4.5.3/css/bootstrap.min.css"
         integrity="sha384-JvExCACAZcHNJEc7156QaHXTnQL3hQBixvj5RV5buE7vgnNEzzskDtx9NQ4p6BJe"
-        crossorigin="anonymous" />
+        crossorigin="anonymous"/>
 
     <title>فرم نظر سنجی</title>
     <link href="https://cdn.jsdelivr.net/gh/rastikerdar/vazir-font@v27.1.0/dist/font-face.css" rel="stylesheet"
@@ -26,7 +26,7 @@
         }
 
         .active2 .card-body {
-            background: #007bff;
+            background: #008600;
             color: white;
         }
 
@@ -46,97 +46,72 @@
 
 <div class="container shadow" id="main">
     <div class="row py-4 border-primary">
-        <div class="col-md-4 col-sm-12">
+        <div class="col-md-4 col-sm-12 text-center">
             <span>
-                استادیار
+ کد استادی:
+                {{$user->ProCode}}
             </span>
         </div>
-        <div class="col-md-4 col-sm-12">
+        <div class="col-md-4 col-sm-12 text-center">
             <span>
-                دانشکده مهندسی برق و کامپیوتر
+                {{\App\Models\University::whereUnicod($user->FacultyCode)->first()->title}}
             </span>
         </div>
-        <div class="col-md-4 col-sm-12">
+        <div class="col-md-4 col-sm-12 text-center">
             <span>
-               محمدجوادصیدی
+               {{$user->FullName}}
             </span>
         </div>
     </div>
     <hr>
     <div class="text-center">
-        <h4>اسامی کاندید های انتخابات کمیسیون دانشگاه </h4>
+        <h4>اسامی کاندید های انتخابات کمیسیون
+            {{\App\Models\University::whereUnicod($user->FacultyCode)->first()->title}}
+        </h4>
     </div>
     <div class="p-2">
-        <form action="#" class="row">
-            <div class="col-md-3 col-sm-12" onclick="f1(this)">
-                <label for="test1">
-                    <div class="card" style="">
-                        <img class="card-img-top" src="http://monitoring.birjand.ac.ir/dist/img/avatar3.png"
-                             alt="Card image cap">
-                        <div class="card-body">
-                            <h5 class="card-title">کاندیدای 3</h5>
-                            <p class="card-text">توضیحات این کاندیدا</p>
-                            <span class="btn btn-primary">انتخاب این کاندیدا</span>
-                        </div>
+        <form action="#">
+            <div class="row">
+                @foreach($com as $l=> $c)
+                    <div class="col-md-3 col-sm-12" onclick="f1(this)">
+                        <label for="test{{$l}}">
+                            <div class="card" style="">
+                                <img class="card-img-top" src="{{$c->photo}}"
+                                     style="width: 225px;height: 224px;"      alt="Card image cap">
+                                <div class="card-body">
+                                    <h5 class="card-title">{{$c->account()->first()->FullName}}</h5>
+                                    <p class="card-text">
+                                        {{sci_level($c->account()->first()->science_level)}}                                </p>
+                                    <span class="btn btn-success">انتخاب این کاندیدا</span>
+                                </div>
+                            </div>
+                        </label>
+                        <input type="radio" value="{{$c->id}}" name="com" style="display: none" id="test{{$l}}">
                     </div>
-                </label>
-                <input type="radio" name="test" style="display: none" id="test1">
+                @endforeach
             </div>
-            <div class=" col-md-3 col-sm-12" onclick="f1(this)">
-                <label for="test2">
-                    <div class="card" style="">
-                        <img class="card-img-top" src="http://monitoring.birjand.ac.ir/dist/img/avatar3.png"
-                             alt="Card image cap">
-                        <div class="card-body">
-                            <h5 class="card-title">کاندیدای 2</h5>
-                            <p class="card-text">توضیحات این کاندیدا</p>
-                            <span class="btn btn-primary">انتخاب این کاندیدا</span>
-                        </div>
-                    </div>
-                </label>
-                <input type="radio" name="test" style="display: none" id="test2">
+            <hr>
+            <div class="text-center">
+                <h4>اسامی کاندید های هیات ممیزه
+                </h4>
             </div>
-            <div class=" col-md-3 col-sm-12" onclick="f1(this)">
-                <label for="test3">
-                    <div class="card" style="">
-                        <img class="card-img-top" src="http://monitoring.birjand.ac.ir/dist/img/avatar3.png"
-                             alt="Card image cap">
-                        <div class="card-body">
-                            <h5 class="card-title">کاندیدای 1</h5>
-                            <p class="card-text">توضیحات این کاندیدا</p>
-                            <span class="btn btn-primary">انتخاب این کاندیدا</span>
-                        </div>
+            <div class="row">
+                @foreach($heyat as $l=> $c)
+                    <div class="col-md-3 col-sm-12" onclick="f1(this)">
+                        <label for="te{{$l}}">
+                            <div class="card" style="">
+                                <img class="card-img-top" src="{{$c->photo}}" style="width: 225px;height: 224px;"      alt="Card image cap">
+                                <div class="card-body">
+                                    <h5 class="card-title">{{$c->account()->first()->FullName}}</h5>
+                                    <p class="card-text">
+                                        {{sci_level($c->account()->first()->science_level)}}                                </p>
+                                    <span class="btn btn-success">انتخاب این کاندیدا</span>
+                                </div>
+                            </div>
+                        </label>
+                        <input type="radio" value="{{$c->id}}" name="heyat" style="display: none" id="te{{$l}}">
                     </div>
-                </label>
-                <input type="radio" name="test" style="display: none" id="test3">
-            </div>
-            <div class=" col-md-3 col-sm-12" onclick="f1(this)">
-                <label for="test0">
-                    <div class="card" style="">
-                        <img class="card-img-top" src="http://monitoring.birjand.ac.ir/dist/img/avatar3.png"
-                             alt="Card image cap">
-                        <div class="card-body">
-                            <h5 class="card-title">کاندیدای 0</h5>
-                            <p class="card-text">توضیحات این کاندیدا</p>
-                            <span class="btn btn-primary">انتخاب این کاندیدا</span>
-                        </div>
-                    </div>
-                </label>
-                <input type="radio" name="test" style="display: none" id="test0">
-            </div>
-            <div class=" col-md-3 col-sm-12" onclick="f1(this)">
-                <label for="test30">
-                    <div class="card" style="">
-                        <img class="card-img-top" src="http://monitoring.birjand.ac.ir/dist/img/avatar3.png"
-                             alt="Card image cap">
-                        <div class="card-body">
-                            <h5 class="card-title">کاندیدای 0</h5>
-                            <p class="card-text">توضیحات این کاندیدا</p>
-                            <span class="btn btn-primary">انتخاب این کاندیدا</span>
-                        </div>
-                    </div>
-                </label>
-                <input type="radio" name="test" style="display: none" id="test30">
+                @endforeach
             </div>
         </form>
     </div>

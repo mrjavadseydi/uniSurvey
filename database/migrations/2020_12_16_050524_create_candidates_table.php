@@ -19,8 +19,8 @@ class CreateCandidatesTable extends Migration
             $table->foreign('account_id')->references('id')->on('accounts')->onDelete('cascade');
             $table->boolean('commission')->default(0);
             $table->boolean('audit_board')->default(0);
-            $table->unsignedBigInteger('university_id');
-            $table->foreign('university_id')->references('id')->on('universities')->cascadeOnDelete();
+            $table->unsignedBigInteger('pardis_id');
+            $table->foreign('pardis_id')->references('id')->on('pardis')->cascadeOnDelete();
             $table->timestamps();
         });
     }

@@ -18,7 +18,8 @@ class CustomAuthMiddleware
     public function handle(Request $request, Closure $next)
     {
         if (!session()->has('login_info')||session('login_info')['expire_at']<Carbon::now()) {
-            return redirect(urlencode('/'));
+            toastr()->warning('زمان قانونی اتصال شما به پایان رسید مجددا وارد شوید!');
+            return redirect(url("/"));
         }
         return $next($request);
     }
