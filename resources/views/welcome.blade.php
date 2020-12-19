@@ -13,6 +13,7 @@
     <link href="https://cdn.jsdelivr.net/gh/rastikerdar/vazir-font@v27.1.0/dist/font-face.css" rel="stylesheet"
           type="text/css"/>
     <title>ورود به حساب کاربری</title>
+    @toastr_css
     <style>
         html{
             font-family: 'Vazir' !important;
@@ -105,7 +106,7 @@
         }
 
     </style>
-    @toastr_css
+
 </head>
 <body>
 <div class="container" id="log-in-form">
