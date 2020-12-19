@@ -20,11 +20,13 @@ class SurveyController extends Controller
 
     public function save(Request $request)
     {
-        Vote::create([
-            'account_id' => session('login_info')['account']['id'],
-            'candidates_id' => $request->com,
-            'pardis_id' => pardis(session('login_info')['account']['FacultyCode'])
-        ]);
+        foreach ($request->com as $l) {
+            Vote::create([
+                'account_id' => session('login_info')['account']['id'],
+                'candidates_id' => $l,
+                'pardis_id' => pardis(session('login_info')['account']['FacultyCode'])
+            ]);
+        }
         foreach ($request->heyat as $l) {
             Vote::create([
                 'account_id' => session('login_info')['account']['id'],

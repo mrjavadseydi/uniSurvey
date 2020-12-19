@@ -20,6 +20,11 @@ Route::get('/', function () {
 Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
     return view('dashboard');
 })->name('dashboard');
+
+Route::middleware(['auth:sanctum', 'verified'])->get('/show/{uid}/{pid}', function ($uid,$pid) {
+    $vote = \App\Models\Vote::where([['candidates_id',$uid],['pardis_id',$pid]])->get();
+    return view('show',compact('vote'));
+})->name('show');
 Route::post('/puyaAuth',[\App\Http\Controllers\AuthController::class,'index'])->name('login');
 
 Route::middleware('customAuth')->prefix('survey')->group(function (){

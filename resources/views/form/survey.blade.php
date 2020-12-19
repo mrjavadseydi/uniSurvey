@@ -94,8 +94,8 @@
             @csrf
             <div class="row">
                 @foreach($com as $l=> $c)
-                    <div class="col-md-3 col-sm-12" onclick="f1(this); l =1;">
-                        <label for="test{{$l}}">
+                    <div class="col-md-3 col-sm-12" >
+                        <label  class="" onclick="f1(this); l =1;">
                             <div class="card" style="">
                                 <img class="card-img-top" src="{{$c->photo}}"
                                      style="width: 225px;height: 224px;" alt="Card image cap">
@@ -113,7 +113,8 @@
                                 </div>
                             </div>
                         </label>
-                        <input type="radio" value="{{$c->id}}" required name="com" style="display: none"
+                        <input type="checkbox" value="{{$c->id}}" required name="com[]"
+                               style="display: none"
                                id="test{{$l}}">
                     </div>
                 @endforeach
@@ -145,7 +146,9 @@
                                 </div>
                             </div>
                         </label>
-                        <input type="checkbox" value="{{$c->id}}" required name="heyat[]" style="display: none">
+                        <input type="checkbox" value="{{$c->id}}" required name="heyat[]"
+                        style="display: none"
+                        >
                     </div>
                 @endforeach
             </div>
@@ -168,10 +171,20 @@
     crossorigin="anonymous"></script>
 <script>
     function f1(elem) {
-        $('.active2 span').text("انتخاب این کاندیدا");
-        $('.active2').removeClass('active2');
-        elem.classList.add("active2");
-        $('.active2 span').text("انتخاب شده");
+        if (elem.classList.contains('active2')) {
+            elem.childNodes[1].childNodes[3].childNodes[5].innerText = "انتخاب این کاندیدا";
+            elem.classList.remove('active2');
+            elem.nextElementSibling.checked = false;
+        } else {
+            if (document.getElementsByClassName('active2').length > 1) {
+                toastr.warning('حداکثر 2 کاندیدا را میتوان از کاندیدهای کمیسیون انتخاب کرد', '', []);
+                elem.nextElementSibling.checked = false;
+            } else {
+                elem.classList.add("active2");
+                $('.active2 span').text("انتخاب شده");
+                elem.nextElementSibling.checked = true;
+            }
+        }
     }
 
     function f2(elem) {
@@ -181,7 +194,7 @@
             elem.nextElementSibling.checked = false;
         } else {
             if (document.getElementsByClassName('active3').length > 2) {
-                toastr.warning('حداکثر 3 کاندیدا را میتوان از هیئت ممیزه انتخاب کرد', '', []);
+                toastr.warning('حداکثر 3 کاندیدا را میتوان از کاندید های هیئت ممیزه انتخاب کرد', '', []);
                 elem.nextElementSibling.checked = false;
             } else {
                 elem.classList.add("active3");
