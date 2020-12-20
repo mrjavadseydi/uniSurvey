@@ -40,6 +40,8 @@
 <div class="container shadow-lg" id="main">
     <div class="p-2">
         @foreach(\App\Models\Pardis::all() as $l => $d)
+            <div class="table-responsive">
+
             <div class="text-center">
                 <p class="alert alert-info" role="alert">
                     {{$d['title']}}
@@ -51,9 +53,9 @@
                     <th class="no-sort">#</th>
                     <th class="filter">نام و نام خانوادگی
                     </th>
-                    <th class="">تعداد رای ها
+                    <th class="">تعداد آرا
                     </th>
-                    <th class="">عملیات
+                    <th class="">مشاهده آرا
                     </th>
                 </tr>
                 </thead>
@@ -64,8 +66,8 @@
                         <td>{{$n->account()->first()->FullName}}</td>
                         <td>{{\App\Models\Vote::where([['candidates_id',$n['id']],['pardis_id',$d['id']]])->count()}}</td>
                         <td>
-                            <a href="{{route('show',[$n['id'],$d['id']])}}" class="btn btn-sm btn-primary">
-                                مشاهده رای ها
+                            <a href="{{route('show',[$n['id'],$d['id']])}}" class="btn btn-sm">
+                                <img src="{{$n['photo']}}"  style="max-height: 75px">
                             </a>
 
                         </td>
@@ -73,8 +75,10 @@
                 @endforeach
                 </tbody>
             </table>
+            </div>
             <hr>
         @endforeach
+        <div class="table-responsive">
             <div class="text-center">
                 <p class="alert alert-info" role="alert">
                     هیئت ممیزه
@@ -86,9 +90,11 @@
                     <th class="no-sort">#</th>
                     <th class="filter">نام و نام خانوادگی
                     </th>
-                    <th class="">تعداد رای ها
+                    <th class="">تعداد آرا
                     </th>
-                    <th class="">عملیات
+                    <th class="">دانشکده
+                    </th>
+                    <th class="">مشاهده آرا
                     </th>
                 </tr>
                 </thead>
@@ -98,9 +104,10 @@
                         <td>{{$i+1}}</td>
                         <td>{{$n->account()->first()->FullName}}</td>
                         <td>{{\App\Models\Vote::where([['candidates_id',$n['id']],['pardis_id',0]])->count()}}</td>
+                        <td>{{\App\Models\University::whereUnicod($n->account()->first()->FacultyCode)->first()->title}}</td>
                         <td>
-                            <a href="{{route('show',[$n['id'],0])}}" class="btn btn-sm btn-primary">
-                                مشاهده رای ها
+                            <a href="{{route('show',[$n['id'],0])}}" class="btn btn-sm" >
+                                <img src="{{$n['photo']}}" style="max-height: 75px">
                             </a>
 
                         </td>
@@ -108,6 +115,7 @@
                 @endforeach
                 </tbody>
             </table>
+        </div>
     </div>
 </div>
 
@@ -125,7 +133,8 @@
             "columnDefs": [{
                 "targets": 'no-sort',
                 "orderable": false,
-            }]            ,
+            }]            , "searching": false,"bLengthChange": false,        "paging":   false,
+            "order": [[ 2, "desc" ]],
             language: {
                 "info": " _START_ تا _END_ از _TOTAL_ ",
                 paginate: {
@@ -169,6 +178,8 @@
                 "targets": 'no-sort',
                 "orderable": false,
             }]            ,
+            "searching": false,"bLengthChange": false,        "paging":   false,
+            "order": [[ 2, "desc" ]],
             language: {
                 "info": " _START_ تا _END_ از _TOTAL_ ",
                 paginate: {

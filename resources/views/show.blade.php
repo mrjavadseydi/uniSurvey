@@ -37,10 +37,13 @@
 </header>
 
 <div class="container ">
-    <div class="row p-3 shadow text-center" style=" background: white">
-        <h6>
-            آمار انتخابات
-        </h6>
+    <div class=" p-3 shadow text-center" style=" background: white">
+        <p>
+            دکتر
+            {{$c->account()->first()->FullName}}
+        </p>
+        <br>
+        <img src="{{$c['photo']}}">
     </div>
 </div>
 <br>
@@ -82,7 +85,7 @@
             "columnDefs": [{
                 "targets": 'no-sort',
                 "orderable": false,
-            }]            ,
+            }]            ,        "paging":   false,
             language: {
                 "info": " _START_ تا _END_ از _TOTAL_ ",
                 paginate: {

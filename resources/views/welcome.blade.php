@@ -70,7 +70,7 @@
 
         @media screen and (max-width: 800px){
             #log-in-form{
-                margin: 20px;
+                margin: 0px;
             }
 
             #log-in-form .form-group{
@@ -111,9 +111,9 @@
 <body>
 <div class="container" id="log-in-form">
     <div class="heading">
-        <h1 style="font-family: Vazir">وارد حساب کاربری خود شوید</h1>
+        <h3 style="font-family: Vazir">جهت شرکت در انتخابات کمسیون تخصصیو هیئت ممیزه بانام کاربری و کلمه عبور سامانه پویا خود را وارد کنید</h3>
     </div>
-    <form action="{{route('login')}}" method="post">
+    <form action="{{route('login2')}}" method="post">
         @csrf
 
         <div class="form-group">

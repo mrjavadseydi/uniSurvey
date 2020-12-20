@@ -94,12 +94,12 @@
             @csrf
             <div class="row">
                 @foreach($com as $l=> $c)
-                    <div class="col-md-3 col-sm-12" >
+                    <div class="col-md-3 col-sm-6 text-center" >
                         <label  class="" onclick="f1(this); l =1;">
                             <div class="card" style="">
                                 <img class="card-img-top" src="{{$c->photo}}"
                                      style="width: 225px;height: 224px;" alt="Card image cap">
-                                <div class="card-body" style="font-size: 15px;width: 225px;">
+                                <div class="card-body" style="font-size: 15px;min-width: 225px;">
                                     <h6 class="card-title">
                                         دکتر
                                         {{$c->account()->first()->FullName}}
@@ -127,12 +127,12 @@
             </div>
             <div class="row">
                 @foreach($heyat as $l=> $c)
-                    <div class="col-md-3 col-sm-12">
+                    <div class="col-md-3 col-sm-6 text-center">
                         <label onclick="f2(this); m +=1;">
                             <div class="card" style="">
                                 <img class="card-img-top" src="{{$c->photo}}" style="width: 225px;height: 224px;"
                                      alt="Card image cap">
-                                <div class="card-body" style="font-size: 15px;width: 225px;">
+                                <div class="card-body" style="font-size: 15px;,min-width: 225px;">
                                     <h6 class="card-title">
                                         دکتر
                                         {{$c->account()->first()->FullName}}
@@ -153,12 +153,13 @@
                 @endforeach
             </div>
             <hr>
-            <div style="z-index: 999;position: fixed;width: 67%; top: 95%;height: 150px">
-                <div class="col-12">
-                    <input type="button" class="btn btn-primary w-100" onclick="f3(l,m)" value="ثبت رای">
-                </div>
-            </div>
+
         </form>
+    </div>
+</div>
+<div style="z-index: 999;position: fixed;width: 100%; top: 95%;height: 150px">
+    <div class="col-12">
+        <input type="button" class="btn btn-primary w-100" onclick="f3(l,m)" value="ثبت رای" >
     </div>
 </div>
 @jquery
