@@ -83,34 +83,71 @@
 </div>
 <br>
 <div class="container shadow-lg" id="main">
-    <div class="text-center pt-2">
-        <h4>لیست کاندیدهای کمیسیون
-            {{\App\Models\Pardis::whereId(pardis($user->FacultyCode))->first()->title}}
 
-        </h4>
-    </div>
     <div class="p-2">
         <form action="{{route('survey')}}" method="post" id="form">
-            @csrf
+            <br>
+            <div class="text-center">
+                <h4>
+                    لیست کاندیدا های هيئت ممیزه
+                </h4>
+            </div>
             <div class="row">
-                @foreach($com as $l=> $c)
-                    <div class="col-md-3 col-sm-6 text-center" >
-                        <label  class="" onclick="f1(this); l =1;">
-                            <div class="card" style="">
+                @foreach($heyat as $l=> $c)
+                    <div class="col-md-2 col-sm-6 text-center">
+                        <label onclick="f2(this); m +=1;">
+                            <div class="card" style="min-height: 400px;">
                                 <img class="card-img-top" src="{{$c->photo}}"
-                                     style="width: 225px;height: 224px;" alt="Card image cap">
-                                <div class="card-body" style="font-size: 15px;min-width: 225px;">
+                                     alt="Card image cap">
+                                <div class="card-body" style="font-size: 1em;">
                                     <h6 class="card-title">
                                         دکتر
                                         {{$c->account()->first()->FullName}}
                                     </h6>
-                                    <p class="card-text">
+                                    <p class="card-text" style="font-size: 12px">
                                         {{sci_level($c->account()->first()->science_level)}}
                                         <br>
                                         {{\App\Models\University::whereUnicod($c->account()->first()->FacultyCode)->first()->title}}
                                     </p>
-                                    <span class="btn btn-success">انتخاب این کاندیدا</span>
                                 </div>
+                                <span class="btn btn-success" style="font-size: 14px">انتخاب این کاندیدا</span>
+
+                            </div>
+                        </label>
+                        <input type="checkbox" value="{{$c->id}}" required name="heyat[]"
+                                                    style="display: none"
+                        >
+                    </div>
+                @endforeac
+            </div>
+            <hr>
+            <div class="text-center pt-2">
+                <h4>لیست کاندیدا های کمیسون تخصصی
+                    {{\App\Models\Pardis::whereId(pardis($user->FacultyCode))->first()->title}}
+
+                </h4>
+            </div>
+            @csrf
+            <div class="row">
+                @foreach($com as $l=> $c)
+                    <div class="col-md-2 col-sm-6 text-center" >
+                        <label  class="" onclick="f1(this); l =1;">
+                            <div class="card" style="min-height: 400px;">
+                                <img class="card-img-top" src="{{$c->photo}}"
+                                     alt="Card image cap">
+                                <div class="card-body" style="font-size: 1em;">
+                                    <h6 class="card-title">
+                                        دکتر
+                                        {{$c->account()->first()->FullName}}
+                                    </h6>
+                                    <p class="card-text" style="font-size: 12px">
+                                        {{sci_level($c->account()->first()->science_level)}}
+                                        <br>
+                                        {{\App\Models\University::whereUnicod($c->account()->first()->FacultyCode)->first()->title}}
+                                    </p>
+                                </div>
+                                <span class="btn btn-success" style="font-size: 14px">انتخاب این کاندیدا</span>
+
                             </div>
                         </label>
                         <input type="checkbox" value="{{$c->id}}" required name="com[]"
@@ -119,41 +156,6 @@
                     </div>
                 @endforeach
             </div>
-            <hr>
-            <div class="text-center">
-                <h4>
-                    لیست کاندید های هيئت ممیزه
-                </h4>
-            </div>
-            <div class="row">
-                @foreach($heyat as $l=> $c)
-                    <div class="col-md-3 col-sm-6 text-center">
-                        <label onclick="f2(this); m +=1;">
-                            <div class="card" style="">
-                                <img class="card-img-top" src="{{$c->photo}}" style="width: 225px;height: 224px;"
-                                     alt="Card image cap">
-                                <div class="card-body" style="font-size: 15px;,min-width: 225px;">
-                                    <h6 class="card-title">
-                                        دکتر
-                                        {{$c->account()->first()->FullName}}
-                                    </h6>
-                                    <p class="card-text">
-                                        {{sci_level($c->account()->first()->science_level)}}
-                                        <br>
-                                        {{\App\Models\University::whereUnicod($c->account()->first()->FacultyCode)->first()->title}}
-                                    </p>
-                                    <span class="btn btn-success">انتخاب این کاندیدا</span>
-                                </div>
-                            </div>
-                        </label>
-                        <input type="checkbox" value="{{$c->id}}" required name="heyat[]"
-                        style="display: none"
-                        >
-                    </div>
-                @endforeach
-            </div>
-            <hr>
-
         </form>
     </div>
 </div>
@@ -173,7 +175,7 @@
 <script>
     function f1(elem) {
         if (elem.classList.contains('active2')) {
-            elem.childNodes[1].childNodes[3].childNodes[5].innerText = "انتخاب این کاندیدا";
+            elem.childNodes[1].childNodes[5].innerText = "انتخاب این کاندیدا";
             elem.classList.remove('active2');
             elem.nextElementSibling.checked = false;
         } else {
@@ -190,7 +192,7 @@
 
     function f2(elem) {
         if (elem.classList.contains('active3')) {
-            elem.childNodes[1].childNodes[3].childNodes[5].innerText = "انتخاب این کاندیدا";
+            elem.childNodes[1].childNodes[5].innerText = "انتخاب این کاندیدا";
             elem.classList.remove('active3');
             elem.nextElementSibling.checked = false;
         } else {

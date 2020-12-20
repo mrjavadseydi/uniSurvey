@@ -24,6 +24,9 @@
             background: #fff;
 
         }
+        .text-right{
+            text-align: right !important;
+        }
     </style>
 
     <link rel="stylesheet" href="{{asset('plugins/datatables.css')}}">
@@ -40,18 +43,22 @@
 <div class="container shadow-lg" id="main">
     <div class="p-2">
         @foreach(\App\Models\Pardis::all() as $l => $d)
-            <div class="table-responsive">
+            <div class="table-responsive" style="overflow: hidden">
 
             <div class="text-center">
                 <p class="alert alert-info" role="alert">
-                    {{$d['title']}}
+                    لیست کاندیدا های کمیسیون تخصصی {{$d['title']}}
                 </p>
             </div>
             <table id="dt-filter-search{{$l}}" class="table text-right table-hover table-striped">
                 <thead>
                 <tr>
                     <th class="no-sort">#</th>
-                    <th class="filter">نام و نام خانوادگی
+                    <th class="filter text-right">نام و نام خانوادگی
+                    </th>
+                    <th class="filter text-right">مرتبه علمی
+                    </th>
+                    <th class="filter text-right">دانشکده
                     </th>
                     <th class="">تعداد آرا
                     </th>
@@ -63,8 +70,10 @@
                 @foreach(\App\Models\Candidate::where([['pardis_id',$d['id']],['commission',1]])->get() as $i => $n)
                     <tr>
                         <td>{{$i+1}}</td>
-                        <td>{{$n->account()->first()->FullName}}</td>
-                        <td>{{\App\Models\Vote::where([['candidates_id',$n['id']],['pardis_id',$d['id']]])->count()}}</td>
+                        <td class="filter text-right">{{$n->account()->first()->FullName}}</td>
+                        <td class="filter text-right">{{sci_level($n->account()->first()->science_level)}}</td>
+                        <td class="filter text-right">{{\App\Models\University::whereUnicod($n->account()->first()->FacultyCode)->first()->title}}</td>
+                        <td >{{\App\Models\Vote::where([['candidates_id',$n['id']],['pardis_id',$d['id']]])->count()}}</td>
                         <td>
                             <a href="{{route('show',[$n['id'],$d['id']])}}" class="btn btn-sm">
                                 <img src="{{$n['photo']}}"  style="max-height: 75px">
@@ -78,21 +87,23 @@
             </div>
             <hr>
         @endforeach
-        <div class="table-responsive">
+        <div class="table-responsive" style="overflow: hidden">
             <div class="text-center">
                 <p class="alert alert-info" role="alert">
-                    هیئت ممیزه
+                     لیست کاندیدا های هیئت ممیزه
                 </p>
             </div>
-            <table id="dt-filter-search" class="table text-right table-hover table-striped">
+            <table id="dt-filter-search" class="table text-right table-hover table-striped" >
                 <thead>
                 <tr>
                     <th class="no-sort">#</th>
-                    <th class="filter">نام و نام خانوادگی
+                    <th class="filter text-right">نام و نام خانوادگی
+                    </th>
+                    <th class="filter text-right">مرتبه علمی
+                    </th>
+                    <th class="filter text-right">دانشکده
                     </th>
                     <th class="">تعداد آرا
-                    </th>
-                    <th class="">دانشکده
                     </th>
                     <th class="">مشاهده آرا
                     </th>
@@ -102,9 +113,10 @@
                 @foreach(\App\Models\Candidate::where([['audit_board',1]])->get() as $i => $n)
                     <tr>
                         <td>{{$i+1}}</td>
-                        <td>{{$n->account()->first()->FullName}}</td>
-                        <td>{{\App\Models\Vote::where([['candidates_id',$n['id']],['pardis_id',0]])->count()}}</td>
-                        <td>{{\App\Models\University::whereUnicod($n->account()->first()->FacultyCode)->first()->title}}</td>
+                        <td class="filter text-right">{{$n->account()->first()->FullName}}</td>
+                        <td class="filter text-right">{{sci_level($n->account()->first()->science_level)}}</td>
+                        <td class="filter text-right">{{\App\Models\University::whereUnicod($n->account()->first()->FacultyCode)->first()->title}}</td>
+                        <td class="filter text-right">{{\App\Models\Vote::where([['candidates_id',$n['id']],['pardis_id',0]])->count()}}</td>
                         <td>
                             <a href="{{route('show',[$n['id'],0])}}" class="btn btn-sm" >
                                 <img src="{{$n['photo']}}" style="max-height: 75px">
@@ -134,7 +146,7 @@
                 "targets": 'no-sort',
                 "orderable": false,
             }]            , "searching": false,"bLengthChange": false,        "paging":   false,
-            "order": [[ 2, "desc" ]],
+            "order": [[ 4, "desc" ]],
             language: {
                 "info": " _START_ تا _END_ از _TOTAL_ ",
                 paginate: {
@@ -179,7 +191,7 @@
                 "orderable": false,
             }]            ,
             "searching": false,"bLengthChange": false,        "paging":   false,
-            "order": [[ 2, "desc" ]],
+            "order": [[ 4, "desc" ]],
             language: {
                 "info": " _START_ تا _END_ از _TOTAL_ ",
                 paginate: {
