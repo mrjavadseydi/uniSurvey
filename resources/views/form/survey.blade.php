@@ -177,8 +177,8 @@
             elem.classList.remove('active2');
             elem.nextElementSibling.checked = false;
         } else {
-            if (document.getElementsByClassName('active2').length > 1) {
-                toastr.warning('حداکثر 2 کاندیدا را میتوان از کاندیدهای کمیسیون انتخاب کرد', '', []);
+            if (document.getElementsByClassName('active2').length >7 ) {
+                toastr.warning('حداکثر 6 کاندیدا را میتوان از کاندیدهای کمیسیون انتخاب کرد', '', []);
                 elem.nextElementSibling.checked = false;
             } else {
                 elem.classList.add("active2");
@@ -194,8 +194,11 @@
             elem.classList.remove('active3');
             elem.nextElementSibling.checked = false;
         } else {
-            if (document.getElementsByClassName('active3').length > 2) {
-                toastr.warning('حداکثر 3 کاندیدا را میتوان از کاندید های هیئت ممیزه انتخاب کرد', '', []);
+            if (document.getElementsByClassName('active3').length
+                >
+                {{pardis($user->FacultyCode)==3 ? 7 : 9}}
+            ) {
+                toastr.warning('حداکثر {{(pardis($user->FacultyCode)==3 ? 7 : 9)-1}} کاندیدا را میتوان از کاندید های هیئت ممیزه انتخاب کرد', '', []);
                 elem.nextElementSibling.checked = false;
             } else {
                 elem.classList.add("active3");

@@ -12,8 +12,8 @@ class SurveyController extends Controller
     public function index()
     {
         $user = session('login_info')['account'];
-        $heyat = Candidate::whereAuditBoard(1)->get();
         $p = pardis($user['FacultyCode']);
+        $heyat = Candidate::where([['pardis_id', $p],['audit_board',1]])->get();
         $com = Candidate::where([['pardis_id', $p], ['commission', 1]])->get();
         return view('form.survey', compact('user', 'com', 'heyat'));
     }
