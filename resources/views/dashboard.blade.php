@@ -42,7 +42,49 @@
 <br>
 <div class="container shadow-lg" id="main">
     <div class="p-2">
-        @foreach(\App\Models\Pardis::all() as $l => $d)
+        <div class="table-responsive" style="overflow: hidden">
+            <div class="text-center">
+                <p class="alert alert-info" role="alert">
+                    لیست کاندیدا های هیئت ممیزه
+                </p>
+            </div>
+            <table id="dt-filter-search" class="table text-right table-hover table-striped" >
+                <thead>
+                <tr>
+                    <th class="no-sort">#</th>
+                    <th class="filter text-right">نام و نام خانوادگی
+                    </th>
+                    <th class="filter text-right">مرتبه علمی
+                    </th>
+                    <th class="filter text-right">دانشکده
+                    </th>
+                    <th class="">تعداد آرا
+                    </th>
+                    <th class="">مشاهده آرا
+                    </th>
+                </tr>
+                </thead>
+                <tbody>
+                @foreach(\App\Models\Candidate::where([['audit_board',1]])->get() as $i => $n)
+                    <tr>
+                        <td>{{$i+1}}</td>
+                        <td class="filter text-right">{{$n->account()->first()->FullName}}</td>
+                        <td class="filter text-right">{{sci_level($n->account()->first()->science_level)}}</td>
+                        <td class="filter text-right">{{\App\Models\University::whereUnicod($n->account()->first()->FacultyCode)->first()->title}}</td>
+                        <td class="filter text-right">{{\App\Models\Vote::where([['candidates_id',$n['id']],['pardis_id',0]])->count()}}</td>
+                        <td>
+                            <a href="{{route('show',[$n['id'],0])}}" class="btn btn-sm" >
+                                <img src="{{$n['photo']}}" style="max-height: 75px">
+                            </a>
+
+                        </td>
+                    </tr>
+                @endforeach
+                </tbody>
+            </table>
+        </div>
+
+    @foreach(\App\Models\Pardis::all() as $l => $d)
             <div class="table-responsive" style="overflow: hidden">
 
             <div class="text-center">
@@ -87,47 +129,6 @@
             </div>
             <hr>
         @endforeach
-        <div class="table-responsive" style="overflow: hidden">
-            <div class="text-center">
-                <p class="alert alert-info" role="alert">
-                     لیست کاندیدا های هیئت ممیزه
-                </p>
-            </div>
-            <table id="dt-filter-search" class="table text-right table-hover table-striped" >
-                <thead>
-                <tr>
-                    <th class="no-sort">#</th>
-                    <th class="filter text-right">نام و نام خانوادگی
-                    </th>
-                    <th class="filter text-right">مرتبه علمی
-                    </th>
-                    <th class="filter text-right">دانشکده
-                    </th>
-                    <th class="">تعداد آرا
-                    </th>
-                    <th class="">مشاهده آرا
-                    </th>
-                </tr>
-                </thead>
-                <tbody>
-                @foreach(\App\Models\Candidate::where([['audit_board',1]])->get() as $i => $n)
-                    <tr>
-                        <td>{{$i+1}}</td>
-                        <td class="filter text-right">{{$n->account()->first()->FullName}}</td>
-                        <td class="filter text-right">{{sci_level($n->account()->first()->science_level)}}</td>
-                        <td class="filter text-right">{{\App\Models\University::whereUnicod($n->account()->first()->FacultyCode)->first()->title}}</td>
-                        <td class="filter text-right">{{\App\Models\Vote::where([['candidates_id',$n['id']],['pardis_id',0]])->count()}}</td>
-                        <td>
-                            <a href="{{route('show',[$n['id'],0])}}" class="btn btn-sm" >
-                                <img src="{{$n['photo']}}" style="max-height: 75px">
-                            </a>
-
-                        </td>
-                    </tr>
-                @endforeach
-                </tbody>
-            </table>
-        </div>
     </div>
 </div>
 
