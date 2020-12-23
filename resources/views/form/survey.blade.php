@@ -115,10 +115,10 @@
                             </div>
                         </label>
                         <input type="checkbox" value="{{$c->id}}" required name="heyat[]"
-                                                    style="display: none"
+                               style="display: none"
                         >
                     </div>
-                @endforeac
+                    @endforeach
             </div>
             <hr>
             <div class="text-center pt-2">
@@ -130,8 +130,11 @@
             @csrf
             <div class="row">
                 @foreach($com as $l=> $c)
-                    <div class="col-md-2 col-sm-6 text-center" >
-                        <label  class="" onclick="f1(this); l =1;">
+                    @if ($user->FacultyCode != 11 && $c->FacultyCode == 11)
+                        @break
+                    @endif
+                    <div class="col-md-2 col-sm-6 text-center">
+                        <label class="" onclick="f1(this); l =1;">
                             <div class="card" style="min-height: 400px;">
                                 <img class="card-img-top" src="{{$c->photo}}"
                                      alt="Card image cap">
@@ -161,7 +164,7 @@
 </div>
 <div style="z-index: 999;position: fixed;width: 100%; top: 93%;height: 150px">
     <div class="col-12">
-        <input type="button" class="btn btn-primary w-100" onclick="f3(l,m)" value="ثبت رای" >
+        <input type="button" class="btn btn-primary w-100" onclick="f3(l,m)" value="ثبت رای">
     </div>
 </div>
 @jquery
@@ -179,7 +182,7 @@
             elem.classList.remove('active2');
             elem.nextElementSibling.checked = false;
         } else {
-            if (document.getElementsByClassName('active2').length >5 ) {
+            if (document.getElementsByClassName('active2').length > 5) {
                 toastr.warning('حداکثر 6 کاندیدا را میتوان از کاندیدهای کمیسیون انتخاب کرد', '', []);
                 elem.nextElementSibling.checked = false;
             } else {
@@ -198,9 +201,9 @@
         } else {
             if (document.getElementsByClassName('active3').length
                 >
-                {{pardis($user->FacultyCode)==3 ? 5 : 7}}
+                {{allow_count($user->FacultyCode)-1}}
             ) {
-                toastr.warning('حداکثر {{(pardis($user->FacultyCode)==3 ? 6 : 8)}} کاندیدا را میتوان از کاندید های هیئت ممیزه انتخاب کرد', '', []);
+                toastr.warning('حداکثر {{allow_count($user->FacultyCode)}} کاندیدا را میتوان از کاندید های هیئت ممیزه انتخاب کرد', '', []);
                 elem.nextElementSibling.checked = false;
             } else {
                 elem.classList.add("active3");

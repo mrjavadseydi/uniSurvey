@@ -1,33 +1,78 @@
 <?php
 if (!function_exists("sci_level")) {
-      function sci_level($code) {
+    function sci_level($code)
+    {
         switch ($code) {
-            case 1: return"مربي آموزشيار";
-            case 2: return"مربي";
-            case 3: return"استاديار";
-            case 4: return"دانشيار";
-            case 5: return"استاد";
+            case 1:
+                return "مربي آموزشيار";
+            case 2:
+                return "مربي";
+            case 3:
+                return "استاديار";
+            case 4:
+                return "دانشيار";
+            case 5:
+                return "استاد";
         }
 
         return "";
     }
 }
 if (!function_exists('pardis')) {
-    function pardis($id){
+    function pardis($id)
+    {
         return \App\Models\University::whereUnicod($id)->first()->pardis_id;
     }
 }
-/* In the name of Allah = بسم اللّه الرّحمن الرّحیم */
-
-/**
- * @فارسی : توابع زمان و تاریخ هجری شمسی (جلالی) در پی اچ پی
- * @name: Hijri_Shamsi,Solar(Jalali) Date and Time Functions
- * @Author : Reza Gholampanahi & WebSite : http://jdf.scr.ir
- * @License: GNU/LGPL _ Open Source & Free : [all functions]
- * @Version: 2.75 =>[ 1399/03/18 = 1441/10/15 = 2020/06/07 ]
- */
-
-/*	F	*/
+if (!function_exists('allow_count')) {
+    function allow_count($fid)
+    {
+        switch ($fid) {
+            case 13:
+                return 4;
+                break;
+            case 26:
+                return 4;
+                break;
+            case 12:
+                return 4;
+                break;
+            case 14:
+                return 6;
+                break;
+            case 28:
+                return 6;
+                break;
+            case 11:
+                return 6;
+                break;
+            case 24:
+                return 2;
+                break;
+            case 19:
+                return 4;
+                break;
+            case 17:
+                return 4;
+                break;
+            case 15:
+                return 4;
+                break;
+            case 20:
+                return 4;
+                break;
+            case 18:
+                return 6;
+                break;
+            case 21:
+                return 6;
+                break;
+            default :
+                return 0;
+                break;
+        }
+    }
+}
 function jdate($format, $timestamp = '', $none = '', $time_zone = 'Asia/Tehran', $tr_num = 'fa')
 {
 
@@ -81,7 +126,7 @@ function jdate($format, $timestamp = '', $none = '', $time_zone = 'Asia/Tehran',
                 break;
 
             case 'c':
-                $out .= $j_y . '/' . $j_m . '/' . $j_d . ' ،' . $date[0] . ':' . $date[1] ;
+                $out .= $j_y . '/' . $j_m . '/' . $j_d . ' ،' . $date[0] . ':' . $date[1];
                 break;
 
             case 'C':

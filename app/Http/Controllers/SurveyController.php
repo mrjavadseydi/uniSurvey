@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Account;
 use App\Models\AccountStatus;
 use App\Models\Candidate;
 use App\Models\Vote;
@@ -13,7 +14,17 @@ class SurveyController extends Controller
     {
         $user = session('login_info')['account'];
         $p = pardis($user['FacultyCode']);
-        $heyat = Candidate::where([['pardis_id', $p],['audit_board',1]])->get();
+        if ($p == 3 || $p == 5) {
+            if ($user['FacultyCode'] == 12) {
+                $people = Account::where('FacultyCode', $user['FacultyCode'])->get('id');
+                $heyat = Candidate::where([['audit_board', 1]])->WhereIn('account_id', $people)->get();
+            } else {
+                $heyat = Candidate::where([['audit_board', 1], ['pardis_id', $p]])->get();
+            }
+        } else {
+            $people = Account::where('FacultyCode', $user['FacultyCode'])->get('id');
+            $heyat = Candidate::where([['audit_board', 1]])->WhereIn('account_id', $people)->get();
+        }
         $com = Candidate::where([['pardis_id', $p], ['commission', 1]])->get();
         return view('form.survey', compact('user', 'com', 'heyat'));
     }
